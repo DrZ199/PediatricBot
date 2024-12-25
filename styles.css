@@ -37,6 +37,25 @@ header .bot-logo {
   cursor: pointer;
 }
 
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.tab-content {
+  display: none;
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.tab-content.active {
+  display: flex;
+  flex-direction: column;
+}
+
 .chat-box {
   flex: 1;
   overflow-y: auto;
@@ -79,7 +98,7 @@ header .bot-logo {
   display: flex;
   justify-content: space-around;
   background-color: #4DB6AC;
-  padding: 5px 0;
+  padding: 10px 0;
 }
 
 .bottom-nav .nav-item {
