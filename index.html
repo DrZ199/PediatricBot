@@ -1,55 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4DB6AC">
+  <title>NelsonBot</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+</head>
 <body>
-  <!-- Header -->
-  <header class="app-header">
-    <h1 class="app-title">NelsonBot</h1>
-    <button class="theme-toggle" id="themeToggle">🌙</button>
+  <header>
+    <h1>
+      <img src="./assets/icons/icon-192x192.png" alt="Bot Logo" class="bot-logo">
+      NelsonBot
+    </h1>
+    <button id="dark-mode-toggle" class="dark-mode-toggle">🌙</button>
   </header>
 
-  <!-- Main Content -->
   <main>
-    <!-- Chat Section -->
-    <div id="chatSection" class="section active">
-      <div class="chat-area" id="messages"></div>
-      <footer class="input-bar">
-        <input type="text" id="userInput" placeholder="Ask a medical question...">
-        <button id="sendButton">?</button>
-      </footer>
-    </div>
-
-    <!-- Calculator Section -->
-    <div id="calculatorSection" class="section">
-      <h2>Calculator</h2>
-      <p>This is a placeholder for the calculator feature.</p>
-    </div>
-
-    <!-- History Section -->
-    <div id="historySection" class="section">
-      <h2>History</h2>
-      <p>Your previous chats will appear here.</p>
-    </div>
-
-    <!-- Settings Section -->
-    <div id="settingsSection" class="section">
-      <h2>Settings</h2>
-      <p>Customize your preferences here.</p>
-    </div>
+    <div id="chat-box" class="chat-box"></div>
   </main>
 
-  <!-- Bottom Navigation -->
-  <nav class="bottom-nav">
-    <button class="nav-item active" data-target="chatSection">
-      <span>Chat</span>
-    </button>
-    <button class="nav-item" data-target="calculatorSection">
-      <span>Calculator</span>
-    </button>
-    <button class="nav-item" data-target="historySection">
-      <span>History</span>
-    </button>
-    <button class="nav-item" data-target="settingsSection">
-      <span>Settings</span>
-    </button>
-  </nav>
+  <footer>
+    <div class="chat-input-bar">
+      <input id="chat-input" type="text" placeholder="Ask a medical question...">
+      <button id="send-btn">❓</button>
+    </div>
+    <nav class="bottom-nav">
+      <a href="#chat" class="nav-item active">Chat</a>
+      <a href="#calculator" class="nav-item">Calculator</a>
+      <a href="#history" class="nav-item">History</a>
+      <a href="#settings" class="nav-item">Settings</a>
+    </nav>
+  </footer>
 
   <script src="app.js"></script>
 </body>
+</html>
