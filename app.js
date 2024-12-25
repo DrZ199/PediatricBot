@@ -21,7 +21,7 @@ function addMessage(sender, text) {
   message.classList.add("message", sender);
   message.textContent = text;
   chatBox.appendChild(message);
-  chatBox.scrollTop = chatBox.scrollHeight;
+  chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to the latest message
 }
 
 // Fetch a response from the model
