@@ -5,7 +5,7 @@ const sendBtn = document.getElementById("send-btn");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 
 // Hugging Face API Configuration
-const apiUrl = "https://api-inference.huggingface.co/models/Qwen/QwQ-32B-Preview/v1/chat/completions";
+const apiUrl = "https://api-inference.huggingface.co/models/EleutherAI/gpt-neo-1.3B";
 const apiKey = "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";
 
 // Event Listeners
