@@ -4,7 +4,8 @@ const chatInput = document.getElementById("chat-input");
 const sendBtn = document.getElementById("send-btn");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 
-const apiUrl = "https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-alpha";
+// Hugging Face API Configuration
+const apiUrl = "https://api-inference.huggingface.co/models/EleutherAI/gpt-j-6b";
 const apiKey = "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";
 
 // Event Listeners
@@ -14,7 +15,7 @@ chatInput.addEventListener("keypress", (e) => {
 });
 darkModeToggle.addEventListener("click", toggleDarkMode);
 
-// Add Message to Chat
+// Add a message to the chat
 function addMessage(sender, text) {
   const message = document.createElement("div");
   message.classList.add("message", sender);
@@ -23,7 +24,7 @@ function addMessage(sender, text) {
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// Fetch Bot Response
+// Fetch a response from the model
 async function fetchBotResponse(userMessage) {
   addMessage("bot", "Typing...");
 
@@ -34,12 +35,14 @@ async function fetchBotResponse(userMessage) {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ inputs: userMessage }),
+      body: JSON.stringify({
+        inputs: userMessage,
+      }),
     });
 
     if (response.ok) {
       const data = await response.json();
-      const botReply = data.generated_text || "I'm sorry, I couldn't process that.";
+      const botReply = data.generated_text || "Sorry, I couldn't process that.";
       updateLastMessage(botReply);
     } else {
       updateLastMessage(`Error: Unable to retrieve information (${response.status}).`);
@@ -49,6 +52,7 @@ async function fetchBotResponse(userMessage) {
   }
 }
 
+// Handle sending a message
 function sendMessage() {
   const userMessage = chatInput.value.trim();
   if (!userMessage) return;
@@ -58,12 +62,13 @@ function sendMessage() {
   fetchBotResponse(userMessage);
 }
 
+// Update the last bot message
 function updateLastMessage(text) {
   const lastBotMessage = [...chatBox.getElementsByClassName("message bot")].pop();
   if (lastBotMessage) lastBotMessage.textContent = text;
 }
 
-// Toggle Dark Mode
+// Toggle dark mode
 function toggleDarkMode() {
   document.body.classList.toggle("dark-mode");
 }
