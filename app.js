@@ -4,12 +4,8 @@ const chatInput = document.getElementById("chat-input");
 const sendBtn = document.getElementById("send-btn");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 
-// Navigation Elements
-const tabContents = document.querySelectorAll(".tab-content");
-const navItems = document.querySelectorAll(".nav-item");
-
 // Hugging Face API Configuration
-const apiUrl = "https://api-inference.huggingface.co/models/EleutherAI/gpt-j-6b";
+const apiUrl = "https://api-inference.huggingface.co/models/Qwen/QwQ-32B-Preview/v1/chat/completions";
 const apiKey = "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";
 
 // Event Listeners
@@ -18,15 +14,6 @@ chatInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") sendMessage();
 });
 darkModeToggle.addEventListener("click", toggleDarkMode);
-
-// Switch Tab Functionality
-function switchTab(tabId) {
-  tabContents.forEach((tab) => tab.classList.remove("active"));
-  document.getElementById(tabId).classList.add("active");
-
-  navItems.forEach((navItem) => navItem.classList.remove("active"));
-  document.querySelector(`[href="#${tabId}"]`).classList.add("active");
-}
 
 // Add a message to the chat
 function addMessage(sender, text) {
@@ -37,9 +24,21 @@ function addMessage(sender, text) {
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// Fetch a response from the model
+// Fetch a response from the Hugging Face API
 async function fetchBotResponse(userMessage) {
   addMessage("bot", "Typing...");
+
+  const messageData = {
+    model: "Qwen/QwQ-32B-Preview",
+    messages: [
+      {
+        role: "user",
+        content: userMessage,
+      },
+    ],
+    max_tokens: 500,
+    stream: false, // Set to true if streaming is required
+  };
 
   try {
     const response = await fetch(apiUrl, {
@@ -48,20 +47,19 @@ async function fetchBotResponse(userMessage) {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        inputs: userMessage,
-      }),
+      body: JSON.stringify(messageData),
     });
 
     if (response.ok) {
       const data = await response.json();
-      const botReply = data.generated_text || "Sorry, I couldn't process that.";
+      const botReply = data.choices?.[0]?.message?.content || "Sorry, I couldn't process that.";
       updateLastMessage(botReply);
     } else {
       updateLastMessage(`Error: Unable to retrieve information (${response.status}).`);
     }
   } catch (error) {
     updateLastMessage("An error occurred. Please try again later.");
+    console.error("Error fetching response:", error);
   }
 }
 
