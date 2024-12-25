@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NelsonBot</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/icons/icon-192x192.png">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <h1 class="app-title">🤖 NelsonBot</h1>
+      <button id="dark-mode-toggle" class="toggle-btn">🌙</button>
+    </div>
+  </header>
+  <main class="chat-area">
+    <div id="chat-box" class="chat-box">
+      <div class="message bot">Hi, I’m NelsonBot. Ask me anything about pediatrics!</div>
+    </div>
+    <div class="input-area">
+      <input id="chat-input" type="text" placeholder="Ask a medical question..." autocomplete="off">
+      <button id="send-btn">
+        <img src="assets/icons/send-icon.png" alt="Send" class="send-icon">
+      </button>
+    </div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
