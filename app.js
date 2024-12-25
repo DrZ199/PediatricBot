@@ -4,6 +4,10 @@ const chatInput = document.getElementById("chat-input");
 const sendBtn = document.getElementById("send-btn");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 
+// Navigation Elements
+const tabContents = document.querySelectorAll(".tab-content");
+const navItems = document.querySelectorAll(".nav-item");
+
 // Hugging Face API Configuration
 const apiUrl = "https://api-inference.huggingface.co/models/EleutherAI/gpt-j-6b";
 const apiKey = "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";
@@ -14,6 +18,15 @@ chatInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") sendMessage();
 });
 darkModeToggle.addEventListener("click", toggleDarkMode);
+
+// Switch Tab Functionality
+function switchTab(tabId) {
+  tabContents.forEach((tab) => tab.classList.remove("active"));
+  document.getElementById(tabId).classList.add("active");
+
+  navItems.forEach((navItem) => navItem.classList.remove("active"));
+  document.querySelector(`[href="#${tabId}"]`).classList.add("active");
+}
 
 // Add a message to the chat
 function addMessage(sender, text) {
