@@ -17,21 +17,36 @@
     <button id="dark-mode-toggle" class="dark-mode-toggle">🌙</button>
   </header>
 
-  <main>
-    <div id="chat-box" class="chat-box"></div>
+  <main id="main-content">
+    <div id="chat-area" class="tab-content active">
+      <div id="chat-box" class="chat-box"></div>
+      <div class="chat-input-bar">
+        <input id="chat-input" type="text" placeholder="Ask a medical question...">
+        <button id="send-btn">❓</button>
+      </div>
+    </div>
+
+    <div id="calculator-area" class="tab-content">
+      <h2>Calculator</h2>
+      <p>This is a placeholder for the calculator feature.</p>
+    </div>
+
+    <div id="history-area" class="tab-content">
+      <h2>History</h2>
+      <p>Your previous chats will appear here.</p>
+    </div>
+
+    <div id="settings-area" class="tab-content">
+      <h2>Settings</h2>
+      <p>Customize your preferences here.</p>
+    </div>
   </main>
 
-  <footer>
-    <div class="chat-input-bar">
-      <input id="chat-input" type="text" placeholder="Ask a medical question...">
-      <button id="send-btn">❓</button>
-    </div>
-    <nav class="bottom-nav">
-      <a href="#chat" class="nav-item active">Chat</a>
-      <a href="#calculator" class="nav-item">Calculator</a>
-      <a href="#history" class="nav-item">History</a>
-      <a href="#settings" class="nav-item">Settings</a>
-    </nav>
+  <footer class="bottom-nav">
+    <a href="#chat-area" class="nav-item active" onclick="switchTab('chat-area')">Chat</a>
+    <a href="#calculator-area" class="nav-item" onclick="switchTab('calculator-area')">Calculator</a>
+    <a href="#history-area" class="nav-item" onclick="switchTab('history-area')">History</a>
+    <a href="#settings-area" class="nav-item" onclick="switchTab('settings-area')">Settings</a>
   </footer>
 
   <script src="app.js"></script>
