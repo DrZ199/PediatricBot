@@ -1,13 +1,13 @@
 // api.js
 
 // Hugging Face API Configuration
-const apiUrl = "https://api-inference.huggingface.co/models/Qwen/QwQ-32B-Preview/v1/chat/completions";
+const apiUrl = "https://api-inference.huggingface.co/models/EleutherAI/gpt-neo-1.3B";
 const apiKey = "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";
 
 // Fetch response from Qwen API
 async function fetchQwenResponse(userMessage) {
   const messageData = {
-    model: "Qwen/QwQ-32B-Preview",
+    model: "EleutherAI/gpt-neo-1.3B",
     messages: [
       {
         role: "user",
