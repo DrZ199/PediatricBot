@@ -1,22 +1,31 @@
-const tabs = document.querySelectorAll(".tab-link");
-const tabContents = document.querySelectorAll(".tab-content");
+// Select elements
+const chatBox = document.getElementById("chat-box");
+const chatInput = document.getElementById("chat-input");
+const sendBtn = document.getElementById("send-btn");
+const darkModeToggle = document.getElementById("dark-mode-toggle");
+const navButtons = document.querySelectorAll(".nav-btn");
+const sections = document.querySelectorAll(".section");
+const calculateBtn = document.getElementById("calculate-btn");
+const num1Input = document.getElementById("num1");
+const num2Input = document.getElementById("num2");
+const calcResult = document.getElementById("calc-result");
 
-// Tab switching logic
-tabs.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    tabs.forEach((t) => t.classList.remove("active"));
-    tabContents.forEach((content) => content.classList.remove("active"));
+// Hugging Face API Configuration
+const apiUrl = "https://api-inference.huggingface.co/models/EleutherAI/gpt-neo-1.3B";
+const apiKey = "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";
 
-    tab.classList.add("active");
-    document.getElementById(tab.dataset.target).classList.add("active");
+// Switch sections
+navButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    sections.forEach(section => section.classList.add("hidden"));
+    document.getElementById(button.dataset.section).classList.remove("hidden");
+
+    navButtons.forEach(btn => btn.classList.remove("active"));
+    button.classList.add("active");
   });
 });
 
 // Chat functionality
-const chatBox = document.getElementById("chat-box");
-const chatInput = document.getElementById("chat-input");
-const sendBtn = document.getElementById("send-btn");
-
 sendBtn.addEventListener("click", () => sendMessage());
 chatInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") sendMessage();
@@ -24,8 +33,7 @@ chatInput.addEventListener("keypress", (e) => {
 
 function addMessage(sender, text) {
   const message = document.createElement("div");
-  message.classList.add("message", sender);
-  message.textContent = text;
+  message.textContent = `${sender}: ${text}`;
   chatBox.appendChild(message);
   chatBox.scrollTop = chatBox.scrollHeight;
 }
@@ -34,29 +42,43 @@ async function sendMessage() {
   const userMessage = chatInput.value.trim();
   if (!userMessage) return;
 
-  addMessage("user", userMessage);
+  addMessage("User", userMessage);
   chatInput.value = "";
-  const botReply = await fetchQwenResponse(userMessage);
-  addMessage("bot", botReply);
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ inputs: userMessage }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      addMessage("Bot", data.generated_text || "I didn't understand that.");
+    } else {
+      addMessage("Bot", `Error: ${response.status}`);
+    }
+  } catch (error) {
+    addMessage("Bot", "An error occurred.");
+  }
 }
 
 // Calculator functionality
-const calculateBtn = document.getElementById("calculate-btn");
 calculateBtn.addEventListener("click", () => {
-  const num1 = parseFloat(document.getElementById("num1").value);
-  const num2 = parseFloat(document.getElementById("num2").value);
+  const num1 = parseFloat(num1Input.value);
+  const num2 = parseFloat(num2Input.value);
 
   if (isNaN(num1) || isNaN(num2)) {
-    document.getElementById("result").textContent = "Please enter valid numbers.";
-    return;
+    calcResult.textContent = "Please enter valid numbers.";
+  } else {
+    calcResult.textContent = `Result: ${num1 + num2}`;
   }
-
-  const result = num1 + num2; // Replace with desired calculation logic
-  document.getElementById("result").textContent = `Result: ${result}`;
 });
 
 // Dark mode toggle
-const darkModeToggle = document.getElementById("dark-mode-toggle");
 darkModeToggle.addEventListener("click", () => {
   document.body.classList.toggle("dark-mode");
 });
