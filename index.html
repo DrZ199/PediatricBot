@@ -1,54 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#4DB6AC">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NelsonBot</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>
-      <img src="./assets/icons/icon-192x192.png" alt="Bot Logo" class="bot-logo">
-      NelsonBot
-    </h1>
-    <button id="dark-mode-toggle" class="dark-mode-toggle">🌙</button>
+  <header class="app-header">
+    <h1>NelsonBot</h1>
+    <button id="dark-mode-toggle" class="dark-mode-btn">🌙</button>
   </header>
 
-  <main id="main-content">
-    <div id="chat-area" class="tab-content active">
-      <div id="chat-box" class="chat-box"></div>
-      <div class="chat-input-bar">
-        <input id="chat-input" type="text" placeholder="Ask a medical question...">
-        <button id="send-btn">❓</button>
-      </div>
-    </div>
+  <div class="tab-buttons">
+    <button class="tab-link active" data-target="chat">Chat</button>
+    <button class="tab-link" data-target="calculator">Calculator</button>
+    <button class="tab-link" data-target="history">History</button>
+    <button class="tab-link" data-target="settings">Settings</button>
+  </div>
 
-    <div id="calculator-area" class="tab-content">
-      <h2>Calculator</h2>
-      <p>This is a placeholder for the calculator feature.</p>
+  <div id="chat" class="tab-content active">
+    <div id="chat-box"></div>
+    <div class="chat-input-wrapper">
+      <input type="text" id="chat-input" placeholder="Ask a medical question..." />
+      <button id="send-btn">❓</button>
     </div>
+  </div>
 
-    <div id="history-area" class="tab-content">
-      <h2>History</h2>
-      <p>Your previous chats will appear here.</p>
-    </div>
+  <div id="calculator" class="tab-content">
+    <h3>Calculator</h3>
+    <input type="number" id="num1" placeholder="Enter first number" />
+    <input type="number" id="num2" placeholder="Enter second number" />
+    <button id="calculate-btn">Calculate</button>
+    <p id="result"></p>
+  </div>
 
-    <div id="settings-area" class="tab-content">
-      <h2>Settings</h2>
-      <p>Customize your preferences here.</p>
-    </div>
-  </main>
+  <div id="history" class="tab-content">
+    <h3>History</h3>
+    <p>Your previous chats will appear here.</p>
+  </div>
 
-  <footer class="bottom-nav">
-    <a href="#chat-area" class="nav-item active" onclick="switchTab('chat-area')">Chat</a>
-    <a href="#calculator-area" class="nav-item" onclick="switchTab('calculator-area')">Calculator</a>
-    <a href="#history-area" class="nav-item" onclick="switchTab('history-area')">History</a>
-    <a href="#settings-area" class="nav-item" onclick="switchTab('settings-area')">Settings</a>
-  </footer>
+  <div id="settings" class="tab-content">
+    <h3>Settings</h3>
+    <p>Customize your preferences here.</p>
+  </div>
 
   <script src="app.js"></script>
+  <script src="api.js"></script>
 </body>
 </html>
