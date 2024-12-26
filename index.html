@@ -4,48 +4,124 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NelsonBot</title>
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="app.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <header class="header">
-    <h1>NelsonBot</h1>
-    <button id="dark-mode-toggle" class="dark-mode-toggle">🌙</button>
-  </header>
+  <div class="container my-4">
+    <h1 class="text-center">NelsonBot</h1>
+    
+    <!-- Nav Tabs -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="calculator-tab" data-bs-toggle="tab" data-bs-target="#calculator" type="button" role="tab">Calculator</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab">Settings</button>
+      </li>
+    </ul>
 
-  <nav class="navbar">
-    <button class="nav-btn" data-section="chat">Chat</button>
-    <button class="nav-btn" data-section="calculator">Calculator</button>
-    <button class="nav-btn" data-section="history">History</button>
-    <button class="nav-btn" data-section="settings">Settings</button>
-  </nav>
-
-  <main class="main-content">
-    <section id="chat" class="section">
-      <div id="chat-box" class="chat-box"></div>
-      <div class="chat-input-bar">
-        <input id="chat-input" type="text" placeholder="Ask a medical question...">
-        <button id="send-btn" class="send-btn">❓</button>
+    <!-- Tab Content -->
+    <div class="tab-content" id="myTabContent">
+      <!-- Calculator Tab -->
+      <div class="tab-pane fade show active" id="calculator" role="tabpanel">
+        <div class="card mt-4">
+          <div class="card-body">
+            <h3 class="card-title">Drug Calculator</h3>
+            <form id="drug-calculator-form">
+              <div class="mb-3">
+                <label for="weight" class="form-label">Weight (kg)</label>
+                <input type="number" id="weight" class="form-control" placeholder="Enter weight" required>
+              </div>
+              <div class="mb-3">
+                <label for="age" class="form-label">Age (months)</label>
+                <input type="number" id="age" class="form-control" placeholder="Enter age in months" required>
+              </div>
+              <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select id="category" class="form-select">
+                  <option value="">Select Category</option>
+                  <option value="1">Antibiotics</option>
+                  <option value="2">Painkillers</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="medication" class="form-label">Medication</label>
+                <select id="medication" class="form-select">
+                  <option value="">Select a category first</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Calculate Dose</button>
+            </form>
+          </div>
+        </div>
       </div>
-    </section>
 
-    <section id="calculator" class="section hidden">
-      <h2>Calculator</h2>
-      <input id="num1" type="number" placeholder="Enter first number">
-      <input id="num2" type="number" placeholder="Enter second number">
-      <button id="calculate-btn">Calculate</button>
-      <p id="calc-result"></p>
-    </section>
+      <!-- Settings Tab -->
+      <div class="tab-pane fade" id="settings" role="tabpanel">
+        <div class="card mt-4">
+          <div class="card-body">
+            <h3 class="card-title">Settings</h3>
+            <form>
+              <div class="mb-3">
+                <label class="form-label">Dark Mode</label>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Notifications</label>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="notificationsSwitch">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="fontSize" class="form-label">Font Size</label>
+                <select id="fontSize" class="form-select">
+                  <option value="small">Small</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="large">Large</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="language" class="form-label">Language</label>
+                <select id="language" class="form-select">
+                  <option value="en" selected>English</option>
+                  <option value="es">Spanish</option>
+                  <option value="fr">French</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="chatHistory" class="form-label">Chat History (days)</label>
+                <input type="range" class="form-range" id="chatHistory" min="1" max="30" value="7">
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Save Settings</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <section id="history" class="section hidden">
-      <h2>History</h2>
-      <p>Your previous chats will appear here.</p>
-    </section>
-
-    <section id="settings" class="section hidden">
-      <h2>Settings</h2>
-      <p>Customize your preferences here.</p>
-    </section>
-  </main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // JavaScript for dynamically updating Medication options based on Category
+    document.getElementById('category').addEventListener('change', function () {
+      const medication = document.getElementById('medication');
+      medication.innerHTML = '';
+      if (this.value === '1') {
+        medication.innerHTML = `
+          <option value="amoxicillin">Amoxicillin</option>
+          <option value="cephalexin">Cephalexin</option>
+        `;
+      } else if (this.value === '2') {
+        medication.innerHTML = `
+          <option value="ibuprofen">Ibuprofen</option>
+          <option value="paracetamol">Paracetamol</option>
+        `;
+      } else {
+        medication.innerHTML = '<option value="">Select a category first</option>';
+      }
+    });
+  </script>
 </body>
 </html>
