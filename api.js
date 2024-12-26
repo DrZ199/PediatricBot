@@ -7,8 +7,8 @@ const apiKey = "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";
 // Fetch response from Hugging Face API
 async function fetchResponse(userMessage) {
   const messageData = {
-    inputs: userMessage, // Correct input field for gpt-neo models
-    max_tokens: 500,
+    inputs: userMessage, // Correct input for gpt-neo
+    max_tokens: 500,     // Token limit
   };
 
   try {
@@ -18,20 +18,22 @@ async function fetchResponse(userMessage) {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(messageData),
+      body: JSON.stringify(messageData), // Correctly formatted payload
     });
 
     if (response.ok) {
       const data = await response.json();
-      return data.generated_text || "Sorry, no response received."; // Access the generated text
+      return data.generated_text || "Sorry, no response received."; // Get the generated text
     } else {
       return `Error: Unable to retrieve information (${response.status}).`;
     }
   } catch (error) {
-    console.error("An error occurred while fetching the API:", error);
+    console.error("Error while fetching the response:", error);
     return "An error occurred. Please try again later.";
   }
 }
 
-// Usage Example
-// fetchResponse("What is the capital of France?").then(console.log);
+// Example usage
+fetchResponse("What is the capital of France?")
+  .then(console.log)
+  .catch(console.error);
