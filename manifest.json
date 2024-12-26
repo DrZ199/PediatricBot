@@ -1,22 +1,21 @@
 {
   "name": "NelsonBot",
   "short_name": "NelsonBot",
-  "description": "A specialized pediatric knowledge assistant based on the Nelson Textbook of Pediatrics.",
-  "start_url": "/index.html",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#00a5a5",
-  "orientation": "portrait",
+  "theme_color": "#007bff",
+  "description": "A chat and calculator bot for mobile and desktop",
   "icons": [
     {
-      "src": "assets/icons/icon-192x192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
     },
     {
-      "src": "assets/icons/icon-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ]
 }
