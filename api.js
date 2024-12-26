@@ -4,18 +4,11 @@
 const apiUrl = "https://api-inference.huggingface.co/models/EleutherAI/gpt-neo-1.3B";
 const apiKey = "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";
 
-// Fetch response from Qwen API
-async function fetchQwenResponse(userMessage) {
+// Fetch response from Hugging Face API
+async function fetchResponse(userMessage) {
   const messageData = {
-    model: "EleutherAI/gpt-neo-1.3B",
-    messages: [
-      {
-        role: "user",
-        content: userMessage,
-      },
-    ],
+    inputs: userMessage, // Correct input field for gpt-neo models
     max_tokens: 500,
-    stream: false, // Set to true if streaming is required
   };
 
   try {
@@ -30,7 +23,7 @@ async function fetchQwenResponse(userMessage) {
 
     if (response.ok) {
       const data = await response.json();
-      return data.choices?.[0]?.message?.content || "Sorry, no response received.";
+      return data.generated_text || "Sorry, no response received."; // Access the generated text
     } else {
       return `Error: Unable to retrieve information (${response.status}).`;
     }
@@ -41,4 +34,4 @@ async function fetchQwenResponse(userMessage) {
 }
 
 // Usage Example
-// fetchQwenResponse("What is the capital of France?").then(console.log);
+// fetchResponse("What is the capital of France?").then(console.log);
